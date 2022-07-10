@@ -1,0 +1,50 @@
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { NavLink } from "react-router-dom";
+import "./SignUp.css";
+
+function OtpModal() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Sign Up
+      </Button>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        className="ModalBox"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="OtpModal">OTP Verification</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="otp_input">
+            <p>One Time Password(OTP) has been sent to pri*****615@gmail.com</p>
+            <form>
+              <input type="text" maxLength="6"></input>
+            </form>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <NavLink to="/Password">
+            <Button
+              className="verify"
+              variant="secondary"
+              onClick={handleClose}
+            >
+              Verify
+            </Button>
+          </NavLink>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+export default OtpModal;
