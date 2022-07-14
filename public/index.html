@@ -15,9 +15,43 @@
       rel="stylesheet"
     />
     <title>Babble</title>
+    <style>
+      .preloader img {
+        width: 25%;
+        height: 25%;
+        position: relative;
+      }
+      .preloader h1 {
+        width: fit-content;
+        font-weight: bolder;
+        font-size: 30px;
+        font-family: "Kanit", sans-serif;
+        margin: 2%;
+        transition:  0.5s ease-out;
+      }
+      .preloader p {
+        font-family: "Kanit", sans-serif;
+        font-weight: bold;
+        transition:  0.5s ease-out;
+      }
+      .preloader {
+        position: fixed;
+        top: 24%;
+        left: 26%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="preloader" class="preloader">
+      <img src="preloader.gif" alt="" />
+      <h1>Let's Connect...</h1>
+      <p>Made by Priyansh 😊</p>
+    </div>
     <div id="root"></div>
   </body>
 </html>

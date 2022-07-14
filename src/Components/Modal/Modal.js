@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { NavLink } from "react-router-dom";
-import "./SignUp.css";
+import "./Modal.css";
 
-function OtpModal() {
+function OtpModal(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -12,7 +12,7 @@ function OtpModal() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Sign Up
+        {props.name}
       </Button>
       <Modal
         show={show}

@@ -18,7 +18,7 @@ const Password = () => {
     <RoutesAnimation>
       <Container className="p-0" fluid>
         <Row className="Password_form">
-          <h1>Create your Password</h1>
+          <h1>Create a new Password</h1>
           <div className="form">
             <form>
               <input type={passwordType} placeholder="Password"></input>

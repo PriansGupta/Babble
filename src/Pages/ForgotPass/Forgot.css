@@ -1,0 +1,17 @@
+.Forgot_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.Forgot_form h1 {
+    font-weight: bolder;
+    font-size: 50px;
+    font-family: "Kanit", sans-serif;
+    margin: 2%;
+  }
+  .Forgot_form p {
+    font-weight: bolder;
+    font-size: 15px;
+    font-family: "Kanit", sans-serif;
+  }

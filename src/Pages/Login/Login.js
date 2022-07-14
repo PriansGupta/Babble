@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import { Eye } from "react-ionicons";
 import { EyeOff } from "react-ionicons";
 import RoutesAnimation from "../../Components/RoutesAnimation/RoutesAnimation";
+import { NavLink } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
@@ -42,6 +43,9 @@ const Login = () => {
                   />
                 )}
               </div>
+              <NavLink to="/Forgot" className="forgotLink">
+                Forgot your Password?
+              </NavLink>
               <button type="submit">Login In</button>
             </form>
           </div>

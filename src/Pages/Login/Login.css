@@ -61,20 +61,10 @@
   position: absolute;
   width: fit-content;
   left: 45%;
-  bottom: 38%;
+  bottom: 40%;
   cursor: pointer;
 }
-.aaz {
-  position: relative;
-  width: 60%;
-}
-.aaz input {
-  height: 50px;
-  margin: 0 !important;
-  width: 100% !important;
-}
-.aaz .passwordHide {
-  position: absolute;
-  top: 27%;
-  left: 89%;
+.forgotLink{
+    text-decoration: none;
+    font-weight: light;
 }
