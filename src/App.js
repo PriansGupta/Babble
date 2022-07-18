@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import CustomizedSwitches from "./Components/Theme/Theme";
 import Logo from "./Components/Logo/Logo";
@@ -13,7 +13,7 @@ function App() {
     setTimeout(() => {
       preloader.style.display = "none";
       setLoader(false);
-    }, 3000);
+    }, 10);
   }
   return (
     !loader && (

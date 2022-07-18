@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect,useRef } from "react";
 import { NavLink } from "react-router-dom";
 import Lottie from "lottie-web";
-import RoutesAnimation from "../RoutesAnimation/RoutesAnimation";
 import animation_2 from "../../Assets/Animations/loginAnimation.json";
 import SideRoutesAnimation from "../RoutesAnimation/SideRouteAnimations";
 

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Col from "react-bootstrap/esm/Col";
+import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import RoutesAnimation from "../../Components/RoutesAnimation/RoutesAnimation";

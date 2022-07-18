@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useRef } from "react";
 import Lottie from "lottie-web";
-import RoutesAnimation from "../RoutesAnimation/RoutesAnimation";
 import animation_3 from "../../Assets/Animations/Password.json";
 import SideRoutesAnimation from "../RoutesAnimation/SideRouteAnimations";
 

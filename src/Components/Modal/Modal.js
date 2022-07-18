@@ -6,12 +6,28 @@ import "./Modal.css";
 
 function OtpModal(props) {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+
+  const enteredOtp = (e) => {
+    props.setOtp(e.target.value);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    props.onVerify();
+  };
+  const handleShow = () => {
+    setShow(true);
+    props.onClick();
+  };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        disabled={!props.buttonState}
+        variant="primary"
+        onClick={handleShow}
+      >
         {props.name}
       </Button>
       <Modal
@@ -28,7 +44,7 @@ function OtpModal(props) {
           <div className="otp_input">
             <p>One Time Password(OTP) has been sent to pri*****615@gmail.com</p>
             <form>
-              <input type="text" maxLength="6"></input>
+              <input type="tel" maxLength="6" onChange={enteredOtp}></input>
             </form>
           </div>
         </Modal.Body>
