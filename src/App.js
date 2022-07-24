@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import { BrowserRouter} from "react-router-dom";
+import GetStarted from "./Pages/GetStarted/GetStarted";
+import CustomizedSwitches from "./Components/Theme/Theme";
+import Logo from "./Components/Logo/Logo";
 
 function App() {
+  const [loader, setLoader] = useState(true);
+  const preloader = document.getElementById("preloader");
+
+  if (loader) {
+    setTimeout(() => {
+      preloader.style.display = "none";
+      setLoader(false);
+    }, 10);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    !loader && (
+      <BrowserRouter>
+        <div className="App">
+          <Logo></Logo>
+          <div className="themeSwitch">
+            <CustomizedSwitches></CustomizedSwitches>
+          </div>
+          <GetStarted></GetStarted>
+        </div>
+      </BrowserRouter>
+    )
   );
 }
 

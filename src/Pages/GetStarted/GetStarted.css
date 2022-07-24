@@ -1,0 +1,67 @@
+.container {
+  height: 100vh;
+  width: 100%;
+}
+.second_Col {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(32, 175, 135, 0.9724264705882353) 11%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  height: 99.5vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.Login_signUp h1 {
+  color: rgb(246, 246, 246);
+  font-weight: bolder;
+  transition: ease-in-out 0.5s;
+  letter-spacing: 1px;
+  font-family: "Kanit", sans-serif;
+}
+.Login_signUp p {
+  letter-spacing: 1px;
+  font-family: "Kanit", sans-serif;
+  color: rgb(246, 246, 246);
+  font-weight: lighter;
+}
+.Login_signUp button {
+  transition: 0.3s ease-in-out;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+  box-shadow: 3px 17px 26px -8px rgba(66, 65, 65, 0.8);
+  -webkit-box-shadow: 3px 17px 26px -8px rgba(66, 65, 65, 0.8);
+  -moz-box-shadow: 3px 17px 26px -8px rgba(66, 65, 65, 0.8);
+}
+.Login_signUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.Login_signUp button:hover {
+  background-color: rgb(241, 238, 238);
+}
+
+.first_Col {
+  height: 99.5vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.container {
+  overflow: hidden;
+  width: 60%;
+  height: 40vh;
+}

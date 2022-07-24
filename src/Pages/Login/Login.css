@@ -1,0 +1,70 @@
+.Login_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.Login_form h1 {
+  font-weight: bolder;
+  font-size: 50px;
+  font-family: "Kanit", sans-serif;
+  margin: 5%;
+}
+.form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form form input {
+  margin: 2%;
+  font-weight: bold;
+  width: 60%;
+  border-radius: 30px;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 2%;
+  font-family: "Kanit", sans-serif;
+  background-color: rgb(233, 233, 233);
+}
+.form form button:hover {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgb(179, 177, 214) 0%,
+    rgba(160, 240, 217, 0.972) 11%,
+    rgb(103, 224, 248) 100%
+  );
+}
+.form form button {
+  transition: 1s ease-in-out;
+  margin: 3%;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(32, 175, 135, 0.9724264705882353) 11%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  color: rgb(250, 250, 250);
+  font-size: 15px;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+}
+
+.passwordHide {
+  position: absolute;
+  width: fit-content;
+  left: 45%;
+  bottom: 40%;
+  cursor: pointer;
+}
+.forgotLink{
+    text-decoration: none;
+    font-weight: light;
+}
