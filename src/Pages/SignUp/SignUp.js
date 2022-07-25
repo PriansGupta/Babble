@@ -7,16 +7,20 @@ import useInput from "../../Hooks/UserInput";
 import usePost from "../../Hooks/PostRequest";
 import useVerify from "../../Hooks/Verify";
 import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { Flip } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 import "./SignUp.css";
 
 const SignUp = () => {
-  const [formIsValid, setFormIsValid] = useState(false);
+  let formIsValid = false;
   const target1 = useRef(null);
   const target2 = useRef(null);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [Otp, setOtp] = useState("");
 
   const {
@@ -33,8 +37,10 @@ const SignUp = () => {
     TouchHandler: emailTouch,
   } = useInput((value) => value.includes("@"));
 
-  const { Request, Message, showModal } = usePost();
+  const { Request, Message, showModal, setOtpModal } = usePost();
   const { VerifyOtp, Verified } = useVerify();
+
+  formIsValid = !nameInputError && !EmailInputError;
 
   let navigate = useNavigate();
   useEffect(() => {
@@ -43,17 +49,73 @@ const SignUp = () => {
         name: target1.current.value,
         email: target2.current.value,
       };
-      localStorage.setItem('NewUser', JSON.stringify(user));
+      localStorage.setItem("NewUser", JSON.stringify(user));
       navigate("/Password", { replace: true });
+      toast("Email Verified", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
     }
-  }, [Verified,navigate]);
+  }, [Verified, navigate]);
+
+  useEffect(() => {
+    setOtpModal(false);
+    setLoading(false);
+    if (showModal)
+      toast.success("OTP Sent", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+  }, [showModal, setOtpModal]);
+
+  useEffect(() => {
+    setOtpModal(false);
+    setLoading(false);
+    if (Message !== "Message sent succesfully" && Message)
+      toast.error(Message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+  }, [Message, setOtpModal]);
 
   const Submit = () => {
+    setLoading(true);
     let User = {
       name: target1.current.value,
       email: target2.current.value,
     };
-    Request(User);
+    if (formIsValid) Request(User);
+    else {
+      setLoading(false);
+      toast.error("Enter Valid Details", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    }
   };
 
   const onVerify = () => {
@@ -74,13 +136,6 @@ const SignUp = () => {
     else setShow2(false);
   }, [EmailInputError]);
 
-  useEffect(() => {
-    if (!nameInputError && !EmailInputError) setFormIsValid(true);
-    else {
-      setFormIsValid(false);
-    }
-  }, [nameInputError, EmailInputError]);
-
   return (
     <RoutesAnimation>
       <Container className="p-0" fluid>
@@ -96,13 +151,29 @@ const SignUp = () => {
                 value={enteredName}
                 ref={target1}
               ></input>
-              <Overlay target={target1.current} show={show1} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
-                    Enter your name
-                  </Tooltip>
+
+              <Overlay
+                target={target1.current}
+                show={show1 && nameTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "rgba(255, 100, 100, 0.85)",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
+                    Enter a Valid Name
+                  </div>
                 )}
               </Overlay>
+
               <input
                 type="email"
                 placeholder="Email"
@@ -111,11 +182,25 @@ const SignUp = () => {
                 value={enteredEmail}
                 ref={target2}
               ></input>
-              <Overlay target={target2.current} show={show2} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
-                    Enter a valid Email
-                  </Tooltip>
+              <Overlay
+                target={target2.current}
+                show={show2 && emailTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "rgba(255, 100, 100, 0.85)",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
+                    Enter a Valid Email
+                  </div>
                 )}
               </Overlay>
               <OtpModal
@@ -125,12 +210,24 @@ const SignUp = () => {
                 onVerify={onVerify}
                 setOtp={setOtp}
                 show={showModal}
+                Loading={isLoading}
               ></OtpModal>
-              {Message && <p>{Message}</p>}
             </form>
           </div>
         </Row>
       </Container>
+      <ToastContainer
+        transition={Flip}
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </RoutesAnimation>
   );
 };

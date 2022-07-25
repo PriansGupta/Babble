@@ -7,18 +7,20 @@ import RoutesAnimation from "../../Components/RoutesAnimation/RoutesAnimation";
 import { NavLink } from "react-router-dom";
 import useInput from "../../Hooks/UserInput";
 import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
-// import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useLogin from "../../Hooks/login";
 
 import "./Login.css";
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
-  const [formIsValid, setFormIsValid] = useState(false);
+  let formIsValid;
   const [hide, setHide] = useState(true);
   const [show2, setShow2] = useState(false);
   const [show1, setShow1] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const target1 = useRef(null);
   const target2 = useRef(null);
   // const navigate = useNavigate();
@@ -36,19 +38,68 @@ const Login = () => {
     TouchHandler: emailTouch,
   } = useInput((value) => value.includes("@"));
 
-  const { LoginToAccount, isLoggedIn } = useLogin();
+  const { LoginToAccount, isLoggedIn, Unable, setUnable, setIsLogged } =
+    useLogin();
+
+  if (!PasswordInputError && !EmailInputError) formIsValid = true;
+  else formIsValid = false;
 
   useEffect(() => {
-    if (isLoggedIn) console.log("LOgged in");
-  }, [isLoggedIn]);
+    if (isLoggedIn) {
+      setLoading(false);
+      console.log("Logged in");
+      toast.success("Logged In Succesfully", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    }
+    setIsLogged(false);
+  }, [isLoggedIn, setIsLogged]);
+
+  useEffect(() => {
+    if (Unable) {
+      setLoading(false);
+      toast.error("Unable to login", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    }
+    setUnable(false);
+  }, [Unable, setUnable]);
 
   const Submit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const Data = {
       email: target2.current.value,
       password: target1.current.value,
     };
     if (formIsValid) LoginToAccount(Data);
+    else {
+      setLoading(false);
+      toast.error("Enter Valid Details", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+    }
   };
 
   useEffect(() => {
@@ -60,13 +111,6 @@ const Login = () => {
     if (EmailInputError) setShow2(true);
     else setShow2(false);
   }, [EmailInputError]);
-
-  useEffect(() => {
-    if (!PasswordInputError && !EmailInputError) setFormIsValid(true);
-    else {
-      setFormIsValid(false);
-    }
-  }, [PasswordInputError, EmailInputError]);
 
   const HideToggle = () => {
     if (!hide) setPasswordType("password");
@@ -89,11 +133,25 @@ const Login = () => {
                 onFocus={emailTouch}
                 value={enteredEmail}
               ></input>
-              <Overlay target={target2.current} show={show2} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
-                    Enter a Valid email
-                  </Tooltip>
+              <Overlay
+                target={target2.current}
+                show={show2 && emailTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "orange",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
+                    Enter your Email
+                  </div>
                 )}
               </Overlay>
               <input
@@ -104,11 +162,25 @@ const Login = () => {
                 onFocus={PasswordTouch}
                 value={enteredPassword}
               ></input>
-              <Overlay target={target1.current} show={show1} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
+              <Overlay
+                target={target1.current}
+                show={show1 && PasswordTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "orange",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
                     Enter your Password
-                  </Tooltip>
+                  </div>
                 )}
               </Overlay>
               <div className="passwordHide" onClick={HideToggle}>
@@ -132,11 +204,23 @@ const Login = () => {
               <NavLink to="/Forgot" className="forgotLink">
                 Forgot your Password?
               </NavLink>
-              <button type="submit">Login In</button>
+              <button type="submit">{isLoading ? "Loading…" : "Login"}</button>
             </form>
           </div>
         </Row>
       </Container>
+      <ToastContainer
+        transition={Flip}
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </RoutesAnimation>
   );
 };

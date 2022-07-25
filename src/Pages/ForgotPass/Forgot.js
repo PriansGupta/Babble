@@ -18,8 +18,7 @@ const Forgot = () => {
           <div className="form">
             <form>
               <input type="email" placeholder="Registered Email"></input>
-              {/* <button type="submit">Proceed</button> */}
-              <OtpModal name="Proceed"></OtpModal>
+              <OtpModal name="Proceed" ></OtpModal>
             </form>
           </div>
         </Row>

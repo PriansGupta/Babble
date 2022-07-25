@@ -9,6 +9,8 @@ import useCreateUser from "../../Hooks/CreateUser";
 import { passwordStrength } from "check-password-strength";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { useNavigate } from "react-router-dom";
 import "./Password.css";
 
@@ -49,8 +51,17 @@ const Password = () => {
   const { newAccount, isLoggedIn } = useCreateUser();
 
   useEffect(() => {
-    if (isLoggedIn)
-    console.log("LOGGED IN")
+    if (isLoggedIn) {
+      toast.success("Account Created", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -152,6 +163,17 @@ const Password = () => {
           </div>
         </Row>
       </Container>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </RoutesAnimation>
   );
 };

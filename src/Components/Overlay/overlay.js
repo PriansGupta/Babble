@@ -1,23 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
 
-const OverLay = (props) => {
-  const [show, setShow] = useState(false);
-  
-  useEffect(()=>{
-      if(props.display)
-      setShow(!show);
-  },[])
+const Warning = (props) => {
   return (
-    <Overlay target={props.target.current} show={show} placement="right">
-      {(props) => (
-        <Tooltip id="overlay-example" {...props}>
-          My Tooltip
-        </Tooltip>
+    <Overlay
+      target={props.target.current}
+      show={props.show}
+      placement="right"
+    >
+      {({ placement, arrowProps, show: _show, popper, ...props }) => (
+        <div
+          {...props}
+          style={{
+            position: "absolute",
+            backgroundColor: "rgba(255, 100, 100, 0.85)",
+            padding: "2px 10px",
+            color: "white",
+            borderRadius: 3,
+            ...props.style,
+          }}
+        >
+          {props.text}
+        </div>
       )}
     </Overlay>
   );
 };
 
-export default OverLay;
+export default Warning;

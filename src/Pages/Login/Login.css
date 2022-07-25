@@ -5,10 +5,12 @@
   text-align: center;
 }
 .Login_form h1 {
+  color: var(--pagehead);
   font-weight: bolder;
   font-size: 50px;
   font-family: "Kanit", sans-serif;
   margin: 5%;
+  transition: 0.5s ease-in-out;
 }
 .form form {
   display: flex;
@@ -64,7 +66,8 @@
   bottom: 40%;
   cursor: pointer;
 }
-.forgotLink{
-    text-decoration: none;
-    font-weight: light;
+.forgotLink {
+  text-decoration: none;
+  font-weight: light;
+  color: var(--textcolor);
 }

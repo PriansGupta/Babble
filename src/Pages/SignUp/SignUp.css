@@ -27,6 +27,7 @@
   font-size: 50px;
   font-family: "Kanit", sans-serif;
   margin: 2%;
+  color: var(--pagehead);
 }
 .form form {
   display: flex;
@@ -102,6 +103,6 @@
   font-family: "Kanit", sans-serif !important;
   letter-spacing: 1px;
 }
-.modal-content{
-    border-radius: 1.3rem !important;
+.modal-content {
+  border-radius: 1.3rem !important;
 }

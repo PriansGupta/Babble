@@ -1,35 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "./Modal.css";
 
 function OtpModal(props) {
-  // const [show, setShow] = useState(false);
-
+  const [show, setShow] = useState(false);
   const enteredOtp = (e) => {
     props.setOtp(e.target.value);
   };
 
   const handleClose = () => {
-    // setShow(false);
+    setShow(false);
     props.onVerify();
   };
+  useEffect(() => {
+    if (props.show) setShow(true);
+  }, [props.show]);
+
   const handleShow = () => {
-    // setShow(true);
     props.onClick();
   };
 
   return (
     <>
-      <Button
-        disabled={!props.buttonState}
-        variant="primary"
-        onClick={handleShow}
-      >
-        {props.name}
+      <Button variant="primary" onClick={handleShow}>
+        {props.Loading ? "Loading…" : `${props.name}`}
       </Button>
       <Modal
-        show={props.show}
+        show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}

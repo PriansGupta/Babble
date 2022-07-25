@@ -1,13 +1,23 @@
 import "./App.css";
-import React, { useState } from "react";
-import { BrowserRouter} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import CustomizedSwitches from "./Components/Theme/Theme";
 import Logo from "./Components/Logo/Logo";
 
 function App() {
   const [loader, setLoader] = useState(true);
+  const [theme, setTheme] = useState("light");
   const preloader = document.getElementById("preloader");
+
+  const ToggleTheme = () => {
+    if (theme === "light") setTheme("dark");
+    else setTheme("light");
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
   if (loader) {
     setTimeout(() => {
@@ -20,7 +30,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Logo></Logo>
-          <div className="themeSwitch">
+          <div className="themeSwitch" onClick={ToggleTheme}>
             <CustomizedSwitches></CustomizedSwitches>
           </div>
           <GetStarted></GetStarted>

@@ -12,10 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post("/EmailVerification", (req, res) => {
-  console.log(req.body, "This is from Index.js");
   User.findOne({ email: req.body.email }, (error, data) => {
-    if (data) res.send({ Message: "Email already registered" });
-    else {
+    if (data) {
+      res.send({ Message: "Email already registered" });
+      return;
+    } else {
       if (req.body.email && req.body.name) {
         const OTP = otpGenerator.generate(6, {
           upperCaseAlphabets: false,

@@ -8,13 +8,13 @@ const usePost = () => {
   const Request = (User) => {
     axios
       .post("http://localhost:3001/EmailVerification", User)
-      .then(function(response) {
+      .then(function (response) {
         const res = response.data.Message;
         console.log(res);
         if (res === "Message sent succesfully") setOtpModal(true);
-        setMessage(res);
+        setMessage(response.data.Message);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   };
@@ -22,6 +22,7 @@ const usePost = () => {
     Request,
     Message,
     showModal,
+    setOtpModal,
   };
 };
 
