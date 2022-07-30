@@ -8,7 +8,6 @@ import useInput from "../../Hooks/UserInput";
 import useCreateUser from "../../Hooks/CreateUser";
 import { passwordStrength } from "check-password-strength";
 import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ const Password = () => {
     else return true;
   });
 
-  const { newAccount, isLoggedIn } = useCreateUser();
+  const { newAccount, isLoggedIn, newPassword } = useCreateUser();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -89,12 +88,20 @@ const Password = () => {
   const SaveUser = (e) => {
     e.preventDefault();
     const LocalData = JSON.parse(localStorage.getItem("NewUser"));
-    const User = {
-      name: LocalData.name,
-      email: LocalData.email,
-      password: target1.current.value,
-    };
-    newAccount(User);
+    if (LocalData.name) {
+      const User = {
+        name: LocalData.name,
+        email: LocalData.email,
+        password: target1.current.value,
+      };
+      newAccount(User);
+    } else {
+      const User = {
+        email: LocalData.email,
+        password: target1.current.value,
+      };
+      newPassword(User);
+    }
   };
   const HideToggle = () => {
     if (!hide) setPasswordType("password");
@@ -116,12 +123,25 @@ const Password = () => {
                 value={enteredPassword}
                 ref={target1}
               ></input>
-              <Overlay target={target1.current} show={show1} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
-                    Strong password should contain an Uppercase,Lowercase and a
-                    Number
-                  </Tooltip>
+              <Overlay
+                target={target1.current}
+                show={show1 && passwordTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "rgba(255, 100, 100, 0.85)",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
+                    Enter a strong Password
+                  </div>
                 )}
               </Overlay>
               <input
@@ -133,11 +153,25 @@ const Password = () => {
                 value={enteredConfirmPassword}
                 ref={target2}
               ></input>
-              <Overlay target={target2.current} show={show2} placement="right">
-                {(props) => (
-                  <Tooltip id="overlay-example" {...props}>
-                    Entered Password should be same.
-                  </Tooltip>
+              <Overlay
+                target={target2.current}
+                show={show2 && passwordConfirmTouch}
+                placement="right"
+              >
+                {({ placement, arrowProps, show: _show, popper, ...props }) => (
+                  <div
+                    {...props}
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "rgba(255, 100, 100, 0.85)",
+                      padding: "2px 10px",
+                      color: "white",
+                      borderRadius: 3,
+                      ...props.style,
+                    }}
+                  >
+                    Re-enter your Password
+                  </div>
                 )}
               </Overlay>
               <div className="SavePasswordHide" onClick={HideToggle}>

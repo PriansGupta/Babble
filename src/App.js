@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import CustomizedSwitches from "./Components/Theme/Theme";
-import Logo from "./Components/Logo/Logo";
+import Chat from "./Pages/Messaging/Chat/Chat";
 
 function App() {
   const [loader, setLoader] = useState(true);
@@ -28,13 +28,13 @@ function App() {
   return (
     !loader && (
       <BrowserRouter>
-        <div className="App">
-          <Logo></Logo>
+        {/* <div className="App">
           <div className="themeSwitch" onClick={ToggleTheme}>
             <CustomizedSwitches></CustomizedSwitches>
           </div>
           <GetStarted></GetStarted>
-        </div>
+        </div> */}
+        <Chat></Chat>
       </BrowserRouter>
     )
   );

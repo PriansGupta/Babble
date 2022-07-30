@@ -15,12 +15,16 @@ const useInput = (Validate) => {
     SetEnteredValue(e.target.value);
   };
 
+  const BlurHandler=()=>{
+    setIsTouched(false)
+  }
   return {
     Value: enteredValue,
     ValueChangeHandler,
     TouchHandler,
     hasError,
-    isTouched
+    isTouched,
+    BlurHandler
   };
 };
 

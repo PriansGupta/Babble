@@ -17,9 +17,24 @@ const useCreateUser = () => {
         console.log(error);
       });
   };
+
+  const newPassword = (User) => {
+    console.log(User);
+    axios
+      .patch("http://localhost:3001/ChangePassword", User)
+      .then(function (response) {
+        console.log(response.data.Message);
+        localStorage.removeItem("NewUser");
+        setIsLogged(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return {
     newAccount,
     isLoggedIn,
+    newPassword,
   };
 };
 

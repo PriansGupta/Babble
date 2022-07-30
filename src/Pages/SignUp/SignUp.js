@@ -6,11 +6,10 @@ import RoutesAnimation from "../../Components/RoutesAnimation/RoutesAnimation";
 import useInput from "../../Hooks/UserInput";
 import usePost from "../../Hooks/PostRequest";
 import useVerify from "../../Hooks/Verify";
-import Overlay from "react-bootstrap/Overlay";
 import { useNavigate } from "react-router-dom";
+import Overlay from "react-bootstrap/Overlay";
 import { ToastContainer, toast } from "react-toastify";
 import { Flip } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 import "./SignUp.css";
 
@@ -28,6 +27,7 @@ const SignUp = () => {
     hasError: nameInputError,
     ValueChangeHandler: nameChangeHandler,
     TouchHandler: nameTouch,
+    BlurHandler:nameBlur
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -35,10 +35,11 @@ const SignUp = () => {
     hasError: EmailInputError,
     ValueChangeHandler: EmailChangeHandler,
     TouchHandler: emailTouch,
+    BlurHandler:emailBlur
   } = useInput((value) => value.includes("@"));
 
   const { Request, Message, showModal, setOtpModal } = usePost();
-  const { VerifyOtp, Verified } = useVerify();
+  const { VerifyOtp, Verified, wrong, setWrong } = useVerify();
 
   formIsValid = !nameInputError && !EmailInputError;
 
@@ -63,6 +64,22 @@ const SignUp = () => {
       });
     }
   }, [Verified, navigate]);
+
+  useEffect(() => {
+    if (wrong === "OTP Invalid") {
+      toast.error("Incorrect OTP", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        transition: Flip,
+      });
+      setWrong("");
+    }
+  }, [wrong, setWrong]);
 
   useEffect(() => {
     setOtpModal(false);
@@ -126,6 +143,7 @@ const SignUp = () => {
     };
     VerifyOtp(OTP);
   };
+
   useEffect(() => {
     if (nameInputError) setShow1(true);
     else setShow1(false);
@@ -148,6 +166,7 @@ const SignUp = () => {
                 placeholder="Full Name"
                 onChange={nameChangeHandler}
                 onFocus={nameTouch}
+                onBlur={nameBlur}
                 value={enteredName}
                 ref={target1}
               ></input>
@@ -179,6 +198,7 @@ const SignUp = () => {
                 placeholder="Email"
                 onChange={EmailChangeHandler}
                 onFocus={emailTouch}
+                onBlur={emailBlur}
                 value={enteredEmail}
                 ref={target2}
               ></input>
@@ -211,6 +231,7 @@ const SignUp = () => {
                 setOtp={setOtp}
                 show={showModal}
                 Loading={isLoading}
+                email={target2}
               ></OtpModal>
             </form>
           </div>

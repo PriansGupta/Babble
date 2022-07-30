@@ -14,7 +14,7 @@ app.use(cors());
 app.post("/EmailVerification", (req, res) => {
   User.findOne({ email: req.body.email }, (error, data) => {
     if (data) {
-      res.send({ Message: "Email already registered" });
+      res.send({ Message: "Email already registered.Try Logging in" });
       return;
     } else {
       if (req.body.email && req.body.name) {
@@ -37,11 +37,32 @@ app.post("/EmailVerification", (req, res) => {
   });
 });
 
+app.post("/FindEmail", (req, res) => {
+  console.log(req.body.email);
+  User.findOne({ email: req.body.email }, (error, data) => {
+    if (data) {
+      const OTP = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+        specialChars: false,
+        lowerCaseAlphabets: false,
+      });
+      store.set("Temp", OTP);
+      const Message = `Dear ${data.name},your One Time Password (OTP) for email verification is ${OTP}.Use this to Verify Your identity and change your Password`;
+      SendMail({ Message: Message, Email: req.body.email }, (error, data) => {
+        if (error) res.send(error);
+        else res.send(data);
+      });
+    } else {
+      res.send({ Message: "User not found" });
+    }
+  });
+});
+
 app.post("/Verify", (req, res) => {
   const enteredOtp = req.body.otp;
   const temp = store.get("Temp");
   if (temp == enteredOtp) res.send({ Message: "Verified" });
-  else res.send({ Message: "Not Verified" });
+  else throw new Error({ Message: "Not Verified" });
 });
 
 app.post("/CreateAccount", (req, res) => {
@@ -69,6 +90,19 @@ app.post("/Login", async (req, res) => {
   } catch (e) {
     res.status(400).send({ Message: "Unable to login" });
   }
+});
+
+app.patch("/ChangePassword", async (req, res) => {
+  User.findOne({ email: req.body.email }, (error, data) => {
+    if (data) {
+      try {
+        const user = User.findByIdAndUpdate(data.id, req.body, { new: true });
+        console.log(user);
+      } catch (e) {
+        res.send(e);
+      }
+    }
+  });
 });
 
 app.listen(port, () => {

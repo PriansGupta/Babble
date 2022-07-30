@@ -3,6 +3,7 @@ const axios = require("axios");
 
 const useVerify = () => {
   const [Verified, setVerified] = useState(false);
+  const [wrong, setWrong] = useState("");
   const VerifyOtp = (Otp) => {
     axios
       .post("http://localhost:3001/Verify", Otp)
@@ -14,12 +15,15 @@ const useVerify = () => {
       })
       .catch(function(error) {
         console.log(error);
+        setWrong("OTP Invalid")
       });
   };
 
   return {
     VerifyOtp,
     Verified,
+    wrong,
+    setWrong
   };
 };
 export default useVerify;

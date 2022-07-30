@@ -38,7 +38,7 @@ function OtpModal(props) {
         </Modal.Header>
         <Modal.Body>
           <div className="otp_input">
-            <p>One Time Password(OTP) has been sent to pri*****615@gmail.com</p>
+            <p>{`One Time Password(OTP) has been sent to your Email`}</p>
             <form>
               <input type="tel" maxLength="6" onChange={enteredOtp}></input>
             </form>

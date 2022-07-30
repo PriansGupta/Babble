@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+.Main_Chat {
+  border: 1px solid;
+  width: 100%;
+  height: 99vh;
+  overflow: hidden;
+  padding: 15px 0px 0px 90px !important;
+  background-color: rgba(32, 175, 135, 0.9724264705882353);
+}
+.Main_1_col {
+  /* border: 1px solid; */
+  border-radius: 10px 0px 0px 10px;
+  height: 99vh;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f3f8;
+}
+.Main_2_col {
+  /* border: 1px solid; */
+  height: 99vh;
+  background-color: #f4f3f8;
+}
+.Main_3_col {
+  /* border: 1px solid; */
+  height: 99vh;
+  border-radius: 0px 10px 10px 0px;
+  background-color: #f4f3f8;
+}

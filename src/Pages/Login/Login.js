@@ -29,6 +29,7 @@ const Login = () => {
     hasError: PasswordInputError,
     ValueChangeHandler: PasswordChangeHandler,
     TouchHandler: PasswordTouch,
+    BlurHandler: PasswordBlur,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -36,6 +37,7 @@ const Login = () => {
     hasError: EmailInputError,
     ValueChangeHandler: EmailChangeHandler,
     TouchHandler: emailTouch,
+    BlurHandler: emailBlur,
   } = useInput((value) => value.includes("@"));
 
   const { LoginToAccount, isLoggedIn, Unable, setUnable, setIsLogged } =
@@ -131,6 +133,7 @@ const Login = () => {
                 ref={target2}
                 onChange={EmailChangeHandler}
                 onFocus={emailTouch}
+                onBlur={emailBlur}
                 value={enteredEmail}
               ></input>
               <Overlay
@@ -161,6 +164,7 @@ const Login = () => {
                 onChange={PasswordChangeHandler}
                 onFocus={PasswordTouch}
                 value={enteredPassword}
+                onBlur={PasswordBlur}
               ></input>
               <Overlay
                 target={target1.current}
