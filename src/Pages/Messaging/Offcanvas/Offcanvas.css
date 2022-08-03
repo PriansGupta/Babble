@@ -1,0 +1,79 @@
+.menu {
+  cursor: pointer;
+  position: fixed;
+  left: 10px;
+  top: 45%;
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 3px;
+  transition: 0.4s;
+}
+.menu:hover {
+  border: 2px solid white;
+}
+.offcanvas-title {
+  margin: auto;
+  font-weight: bolder;
+  font-size: 40px;
+  font-family: "Kanit", sans-serif;
+  color: var(--pagehead);
+  user-select: none;
+
+}
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.offcanvas {
+  background-color: var(--bgcolor);
+  display: flex;
+  flex-direction: column;
+}
+.Feedback {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  height: 60%;
+  position: absolute;
+}
+.send {
+  transition: 1s ease-in-out;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(32, 175, 135, 0.9724264705882353) 11%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  color: rgb(250, 250, 250);
+  font-size: 15px;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+}
+.navFeed {
+  text-decoration: none;
+  color: black;
+}
+.back {
+  position: absolute;
+  transform: translate(-168px, -420px);
+}
+.Made_by {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Kanit", sans-serif !important;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--textcolor);
+  user-select: none;
+}
+.Made_by a{
+    text-decoration: none;
+    color:var(--textcolor);
+}

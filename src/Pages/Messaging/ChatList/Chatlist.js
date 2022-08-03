@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import Chatitem from "./Chatitem";
 import Profile from "../../../Assets/Avatars/profile.png";
 import { Search } from "react-ionicons";
-import Badge from "react-bootstrap/Badge";
 import "./Chatlist.css";
 
 const Chatlist = () => {
@@ -74,11 +73,9 @@ const Chatlist = () => {
 
   return (
     <Fragment>
-      <div >
+      <div>
         <div className="chatlist__heading">
-          <h2>
-            Chats
-          </h2>
+          <h2>Chats</h2>
         </div>
         <div className="chatList__search">
           <div className="search_wrap">

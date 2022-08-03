@@ -10,6 +10,7 @@ import Overlay from "react-bootstrap/Overlay";
 import { ToastContainer, toast } from "react-toastify";
 import { Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import useLogin from "../../Hooks/login";
 
 import "./Login.css";
@@ -23,7 +24,7 @@ const Login = () => {
   const [isLoading, setLoading] = useState(false);
   const target1 = useRef(null);
   const target2 = useRef(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     value: enteredPassword,
     hasError: PasswordInputError,
@@ -60,6 +61,7 @@ const Login = () => {
         progress: undefined,
         transition: Flip,
       });
+      navigate("/User/chats", { replace: true });
     }
     setIsLogged(false);
   }, [isLoggedIn, setIsLogged]);
@@ -205,7 +207,7 @@ const Login = () => {
                   />
                 )}
               </div>
-              <NavLink to="/Forgot" className="forgotLink">
+              <NavLink to="/HomePage/Forgot" className="forgotLink">
                 Forgot your Password?
               </NavLink>
               <button type="submit">{isLoading ? "Loading…" : "Login"}</button>

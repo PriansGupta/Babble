@@ -23,7 +23,7 @@ const SideSignUp = () => {
       <div className="Login_signUp">
         <h1>Already have an account?</h1>
         <p>Login with your credentials and start chatting.</p>
-        <NavLink to="/Login">
+        <NavLink to="/HomePage/Login">
           <button>Login</button>
         </NavLink>
       </div>

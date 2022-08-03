@@ -104,6 +104,7 @@
   margin: 0;
   padding: 0;
   color: #000;
+  user-select: none;
   font-weight: 600;
   font-size: 14px;
 }
@@ -146,4 +147,5 @@
   font-size: 40px;
   font-family: "Kanit", sans-serif;
   color: var(--pagehead);
+  user-select: none;
 }

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import CustomizedSwitches from "./Components/Theme/Theme";
 import Chat from "./Pages/Messaging/Chat/Chat";
@@ -28,13 +28,16 @@ function App() {
   return (
     !loader && (
       <BrowserRouter>
-        {/* <div className="App">
+        <div className="App">
+          <Routes>
+            <Route path="*" element={<GetStarted />}></Route>
+            <Route path="/HomePage/*" element={<GetStarted />}></Route>
+            <Route path="/User/chats/*" element={<Chat />}></Route>
+          </Routes>
           <div className="themeSwitch" onClick={ToggleTheme}>
             <CustomizedSwitches></CustomizedSwitches>
           </div>
-          <GetStarted></GetStarted>
-        </div> */}
-        <Chat></Chat>
+        </div>
       </BrowserRouter>
     )
   );

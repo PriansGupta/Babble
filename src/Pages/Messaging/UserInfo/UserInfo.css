@@ -4,12 +4,13 @@
   justify-content: center;
   align-items: center;
   background-color: #f4f3f8;
-  box-shadow: 2px 6px 10px -7px rgba(0,0,0,0.84);
--webkit-box-shadow: 2px 6px 10px -7px rgba(0,0,0,0.84);
--moz-box-shadow: 2px 6px 10px -7px rgba(0,0,0,0.84);
+  box-shadow: 2px 6px 10px -7px rgba(0, 0, 0, 0.84);
+  -webkit-box-shadow: 2px 6px 10px -7px rgba(0, 0, 0, 0.84);
+  -moz-box-shadow: 2px 6px 10px -7px rgba(0, 0, 0, 0.84);
   border-radius: 15px;
   padding: 10%;
-  width: 80%;
+  width: 100%;
+  margin-top: 15%;
 }
 .Profile {
   border: 5px solid rgba(0, 212, 255, 1);
@@ -20,17 +21,20 @@
   width: 100px;
   border-radius: 50%;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 .User_Info h6,
 p {
   font-weight: bolder;
   letter-spacing: 1px;
   font-family: "Kanit", sans-serif;
+  user-select: none;
   margin: auto;
 }
 .User_Info p {
   font-weight: lighter;
   letter-spacing: 2px;
   font-family: "Kanit", sans-serif;
+  user-select: none;
   margin: auto;
 }
