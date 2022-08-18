@@ -12,10 +12,15 @@ import { Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../../Hooks/login";
-
+import { useDispatch } from "react-redux";
+import { LoggedIn } from "../../Store/Actions";
+import { AddUser } from "../../Store/Actions";
 import "./Login.css";
 
 const Login = () => {
+  let socket;
+  const ENDPOINT = "http://localhost:3001";
+  const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   let formIsValid;
   const [hide, setHide] = useState(true);
@@ -41,8 +46,14 @@ const Login = () => {
     BlurHandler: emailBlur,
   } = useInput((value) => value.includes("@"));
 
-  const { LoginToAccount, isLoggedIn, Unable, setUnable, setIsLogged } =
-    useLogin();
+  const {
+    LoginToAccount,
+    isLoggedIn,
+    Unable,
+    setUnable,
+    setIsLogged,
+    UserData,
+  } = useLogin();
 
   if (!PasswordInputError && !EmailInputError) formIsValid = true;
   else formIsValid = false;
@@ -51,6 +62,9 @@ const Login = () => {
     if (isLoggedIn) {
       setLoading(false);
       console.log("Logged in");
+
+      // dispatch(AddUser(NewUser));
+      dispatch(LoggedIn(UserData));
       toast.success("Logged In Succesfully", {
         position: "bottom-center",
         autoClose: 5000,
@@ -64,7 +78,7 @@ const Login = () => {
       navigate("/User/chats", { replace: true });
     }
     setIsLogged(false);
-  }, [isLoggedIn, setIsLogged]);
+  }, [isLoggedIn, setIsLogged, UserData, dispatch, navigate]);
 
   useEffect(() => {
     if (Unable) {
@@ -137,6 +151,7 @@ const Login = () => {
                 onFocus={emailTouch}
                 onBlur={emailBlur}
                 value={enteredEmail}
+                // value="priyanshg615@gmail.com"
               ></input>
               <Overlay
                 target={target2.current}
@@ -166,6 +181,7 @@ const Login = () => {
                 onChange={PasswordChangeHandler}
                 onFocus={PasswordTouch}
                 value={enteredPassword}
+                // value="Aman@4321"
                 onBlur={PasswordBlur}
               ></input>
               <Overlay

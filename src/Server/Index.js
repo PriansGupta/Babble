@@ -1,15 +1,46 @@
 require("./Db/mongoose");
 const express = require("express");
+const http = require("http");
 const cors = require("cors");
 const User = require("./Models/User");
 const SendMail = require("./Requests/SendMail");
 const store = require("store2");
 const otpGenerator = require("otp-generator");
+const socket = require("socket.io");
+
 const port = process.env.PORT || 3001;
 const app = express();
+const server = http.createServer(app);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (data) => {
+    onlineUsers.set(data.userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    console.log(onlineUsers);
+    console.log(data.to, data.from);
+    console.log(data.message);
+    console.log(sendUserSocket);
+    if (sendUserSocket) {
+      io.emit("msg-recieve", ({message:data.message,for:data.to}));
+    }
+  });
+});
 
 app.post("/EmailVerification", (req, res) => {
   User.findOne({ email: req.body.email }, (error, data) => {
@@ -105,6 +136,30 @@ app.patch("/ChangePassword", async (req, res) => {
   });
 });
 
-app.listen(port, () => {
+app.post("/Logout", (req, res) => {
+  User.findOne({ email: req.body.email }, (error, data) => {
+    if (data) {
+      try {
+        data.tokens = [];
+        data.save();
+        console.log("Logged Out");
+        res.send(data);
+      } catch (e) {
+        res.send(e);
+      }
+    }
+  });
+});
+
+app.get("/getUsers", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).send(users);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+server.listen(port, () => {
   console.log("Started at ", port);
 });

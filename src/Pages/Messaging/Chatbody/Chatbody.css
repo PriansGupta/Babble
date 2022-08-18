@@ -28,6 +28,7 @@
 .content__body {
   max-height: calc(116vh - calc(100vh / 2));
   overflow: auto;
+  min-height: 68vh;
 }
 .chat__item {
   display: flex;

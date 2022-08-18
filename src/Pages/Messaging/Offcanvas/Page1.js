@@ -9,8 +9,39 @@ import { ChatboxEllipses } from "react-ionicons";
 import { InformationCircle } from "react-ionicons";
 import { NavLink } from "react-router-dom";
 import RoutesAnimation from "../../../Components/RoutesAnimation/RoutesAnimation";
+import useLogout from "../../../Hooks/logout";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { LoggedOut } from "../../../Store/Actions";
+import { useNavigate } from "react-router-dom";
+import socketIo from "socket.io-client";
 
 export default function NestedList() {
+  let socket;
+  const ENDPOINT = "http://localhost:3001";
+  const { LogOutAccount } = useLogout();
+  const myState = useSelector((state) => state.UserUpdate);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const LogoutHandler = () => {
+    let UserData = {
+      name: myState.name,
+      email: myState.email,
+      LoggedIn: false,
+      token: myState.tokens,
+    };
+    // console.log(UserData);
+    UserData.token = "";
+    LogOutAccount(UserData);
+    navigate("/Homepage", { replace: true });
+    dispatch(LoggedOut(UserData));
+    socket = socketIo(ENDPOINT, { transports: ["websocket"] });
+    socket.emit("disconnect");
+    
+    // console.log("Logout");
+  };
+
   return (
     <RoutesAnimation>
       <List
@@ -29,7 +60,7 @@ export default function NestedList() {
           </ListItemIcon>
           <ListItemText primary="Change Password" />
         </ListItemButton>
-        <ListItemButton style={{ marginTop: "10px" }}>
+        <ListItemButton onClick={LogoutHandler} style={{ marginTop: "10px" }}>
           <ListItemIcon>
             <LogOut
               color={"#00000"}

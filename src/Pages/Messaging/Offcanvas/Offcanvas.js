@@ -6,6 +6,7 @@ import NestedList from "./Page1";
 import { Route, Routes } from "react-router-dom";
 import Feedback from "./Feedback";
 import { Heart } from "react-ionicons";
+import { NavLink } from "react-router-dom";
 const options = [
   {
     scroll: false,
@@ -22,7 +23,9 @@ function OffCanvasExample({ name, ...props }) {
   return (
     <>
       <span onClick={toggleShow} className="me-2 menu">
-        <Menu color="white" title="Menu" height="35px" width="35px" />
+        <NavLink to="/User/chats/Options">
+          <Menu color="white" title="Menu" height="35px" width="35px" />
+        </NavLink>
       </span>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>

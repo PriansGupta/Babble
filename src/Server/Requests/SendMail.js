@@ -4,13 +4,13 @@ const SendMail = (Data, callback) => {
   const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-      user: "babble@outlook.in",
+      user: "no-reply-babble@outlook.com",
       pass: "Jc6dvfqy1@",
     },
   });
 
   const options = {
-    from: "babble@outlook.in",
+    from: "no-reply-babble@outlook.com",
     to: `${Data.Email}`,
     subject: `Welcome to our World!`,
     text: `${Data.Message}`,

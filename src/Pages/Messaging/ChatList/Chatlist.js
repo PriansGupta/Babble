@@ -1,81 +1,30 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Chatitem from "./Chatitem";
-import Profile from "../../../Assets/Avatars/profile.png";
+// import Profile from "../../../Assets/Avatars/profile.png";
 import { Search } from "react-ionicons";
+import useGetUsers from "../../../Hooks/getUsers";
+import { useSelector } from "react-redux";
 import "./Chatlist.css";
 
 const Chatlist = () => {
-  const allChatUsers = [
-    {
-      image: Profile,
-      id: 1,
-      name: "Mummy",
-      active: true,
-      isOnline: true,
-    },
-    {
-      image: Profile,
-      id: 2,
-      name: "Papa",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image: Profile,
-      id: 3,
-      name: "Bhaiya",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image: Profile,
-      id: 4,
-      name: "Naani",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: Profile,
-      id: 5,
-      name: "Himanshu",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image: Profile,
-      id: 6,
-      name: "Megha",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: Profile,
-      id: 7,
-      name: "Shruti",
-      active: false,
-      isOnline: true,
-    },
-    {
-      image: Profile,
-      id: 8,
-      name: "Sanskriti",
-      active: false,
-      isOnline: false,
-    },
-    {
-      image: Profile,
-      id: 9,
-      name: "Shivangi",
-      active: false,
-      isOnline: true,
-    },
-  ];
+  const { getList, Users } = useGetUsers();
+  const myState = useSelector((state) => state.UserUpdate);
+
+  useEffect(() => {
+    let UserData = {
+      name: myState.name,
+      email: myState.email,
+    };
+    getList(UserData);
+  }, []);
+  // console.log(Users);
+  const allChatUsers = Users;
 
   return (
     <Fragment>
       <div>
         <div className="chatlist__heading">
-          <h2>Chats</h2>
+          <h2>Users Available</h2>
         </div>
         <div className="chatList__search">
           <div className="search_wrap">
@@ -95,7 +44,7 @@ const Chatlist = () => {
             return (
               <Chatitem
                 name={item.name}
-                key={item.id}
+                id={item.id}
                 animationDelay={index + 1}
                 active={item.active ? "active" : ""}
                 isOnline={item.isOnline ? "active" : ""}
