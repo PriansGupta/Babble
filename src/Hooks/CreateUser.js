@@ -18,6 +18,7 @@ const useCreateUser = () => {
       });
   };
 
+  console.log("dsds");
   const newPassword = (User) => {
     console.log(User);
     axios
