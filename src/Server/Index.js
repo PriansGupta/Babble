@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
     console.log(data.message);
     console.log(sendUserSocket);
     if (sendUserSocket) {
-      io.emit("msg-recieve", ({message:data.message,for:data.to}));
+      io.emit("msg-recieve", { message: data.message, for: data.to });
     }
   });
 });

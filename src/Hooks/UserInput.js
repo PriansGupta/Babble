@@ -14,7 +14,7 @@ const useInput = (Validate) => {
   const ValueChangeHandler = (e) => {
     SetEnteredValue(e.target.value);
   };
-
+  
   const BlurHandler=()=>{
     setIsTouched(false)
   }

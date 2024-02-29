@@ -41,12 +41,10 @@ function App() {
           <Routes>
             <Route path="*" element={<GetStarted />}></Route>
             <Route path="/HomePage/*" element={<GetStarted />}></Route>
-            {token && (
-              <Route
-                path="/User/chats/*"
-                element={<Chat name={myState.name} email={myState.email} />}
-              ></Route>
-            )}
+            <Route
+              path="/User/chats/*"
+              element={<Chat name={myState.name} email={myState.email} />}
+            ></Route>
           </Routes>
           <div className="themeSwitch" onClick={ToggleTheme}>
             <CustomizedSwitches></CustomizedSwitches>

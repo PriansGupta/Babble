@@ -6,16 +6,19 @@
   bottom: 5%;
   right: 2%;
 }
+
 .light {
   --pagehead: black;
   --bgcolor: white;
   --textcolor: black;
 }
+
 .dark {
   --pagehead: #bb86fc;
   --bgcolor: #1f1b24;
   --textcolor: white;
 }
+
 ::-webkit-scrollbar {
   width: 5px;
   display: none;

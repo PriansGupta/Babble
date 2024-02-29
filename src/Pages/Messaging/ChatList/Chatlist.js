@@ -18,7 +18,31 @@ const Chatlist = () => {
     getList(UserData);
   }, []);
   // console.log(Users);
-  const allChatUsers = Users;
+  const allChatUsers = [
+    { name: "Princy", id: "dsdsdsds", image: "", active: true, isOnline: true },
+    {
+      name: "Priyansh",
+      id: "dsdsdsds",
+      image: "",
+      active: false,
+      isOnline: false,
+    },
+    {
+      name: "Aditya",
+      id: "dsdsdsds",
+      image: "",
+      active: false,
+      isOnline: true,
+    },
+    { name: "Abhay", id: "dsdsdsds", image: "", active: false, isOnline: true },
+    {
+      name: "Aryaman",
+      id: "dsdsdsds",
+      image: "",
+      active: false,
+      isOnline: false,
+    },
+  ];
 
   return (
     <Fragment>
